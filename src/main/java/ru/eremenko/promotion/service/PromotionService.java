@@ -47,7 +47,7 @@ public class PromotionService {
     }
 
     public boolean updatePromo(long id, IngoingPromoDto promoDto) {
-        if (promoDto.getName().isEmpty()) {
+        if (promoDto.getName() == null || promoDto.getName().isEmpty()) {
             return false;
         }
         List<Promotion> promotionList = promotionRepo.getPromotionList();

@@ -27,6 +27,9 @@ public class PromotionController {
     @Operation(summary = "Add new promotion")
     @PostMapping
     public ResponseEntity<?> addPromo(@RequestBody IngoingPromoDto promo) {
+        if (promo.getName() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         long newPromoId = promotionService.addPromo(promo);
         return new ResponseEntity<>(newPromoId, HttpStatus.OK);
     }
@@ -51,6 +54,7 @@ public class PromotionController {
     @Operation(summary = "Update promotion")
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> updatePromo(@PathVariable("id") long promoId, @RequestBody IngoingPromoDto promo) {
+
         if (promotionService.updatePromo(promoId, promo)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
